@@ -2,46 +2,103 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Subida de Archivos</title>
   <style>
     body {
-      font-family: Arial;
-      background-image: url("fondo.jpg");
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('fondo.jpg');
       background-size: cover;
-      background-repeat: no-repeat;
       background-position: center;
-      color: white;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: brightness(0.4);
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
       text-align: center;
-      padding: 40px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
 
-    #preview {
-      display: none;
+    h1 {
+      margin-bottom: 1rem;
+      color: #333;
     }
 
-    input[type="file"] {
-      margin-bottom: 10px;
+    form input[type="file"] {
+      margin: 1rem 0;
+    }
+
+    form button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    #preview img {
+      max-width: 100%;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+
+    #back-button {
+      margin-top: 1rem;
+      display: inline-block;
+      background-color: #6c757d;
+      color: white;
+      padding: 0.3rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div id="form-container">
+      <h1>Subir archivo</h1>
+      <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="archivo" required />
+        <br />
+        <button type="submit">Subir</button>
+      </form>
+    </div>
 
-  <h1>Subir un archivo</h1>
+    <div id="preview" style="display: none;">
+      <h1>Archivo subido</h1>
+      <img id="uploaded-image" src="" alt="Archivo Subido" />
+      <br />
+      <button id="back-button">Volver</button>
+    </div>
 
-  <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="archivo" required />
-    <br />
-    <button type="submit">Subir</button>
-  </form>
-
-  <div id="preview">
-    <h2>Archivo subido:</h2>
-    <img id="uploaded-image" src="" alt="Archivo subido" style="max-width: 80%;" />
-    <br />
-    <button id="back-button">Volver</button>
+    <footer>
+      Proyecto cliente-servidor en Node.js
+    </footer>
   </div>
 
-  <!-- Tu script -->
   <script>
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -64,7 +121,6 @@
       window.location.href = window.location.pathname;
     });
   </script>
-
 </body>
 </html>
 
