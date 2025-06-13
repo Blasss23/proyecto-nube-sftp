@@ -23,7 +23,7 @@ const upload = multer({ storage });
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(uploadDir));
 
-// Ruta explícita para servir index.html
+// Ruta explícita para servir index.html (página de inicio)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -77,8 +77,8 @@ app.post('/upload', upload.single('archivo'), (req, res) => {
         <div class="container">
           <h1>✅ Archivo subido correctamente</h1>
           <p><strong>Nombre:</strong> ${filename}</p>
-          ${isImage ? `<img src="${fileUrl}" alt="Imagen subida">` : `<p><a href="${fileUrl}" target="_blank">Ver archivo</a></p>`}
-          <br>
+          ${isImage ? `<img src="${fileUrl}" alt="Imagen subida" />` : `<p><a href="${fileUrl}" target="_blank">Ver archivo</a></p>`}
+          <br />
           <a class="button" href="/">Subir otro archivo</a>
         </div>
       </body>
