@@ -1,147 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subir Archivos</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-image: url('fondo.jpg');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: contain;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      color: white;
-      overflow: hidden;
-    }
+<!-- Solo la parte JS que importa -->
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 0;
-    }
+<script>
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
 
-    .container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-      padding: 2rem 3rem;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      color: #333;
-    }
+  const fileName = getQueryParam('file');
+  const previewDiv = document.getElementById('preview');
+  const uploadForm = document.getElementById('upload-form');
+  const uploadedImage = document.getElementById('uploaded-image');
+  const backButton = document.getElementById('back-button');
 
-    h1 {
-      margin-bottom: 1.2rem;
-    }
+  if (fileName) {
+    uploadForm.style.display = 'none';
+    uploadedImage.src = '/uploads/' + encodeURIComponent(fileName);
+    previewDiv.style.display = 'block';
+  }
 
-    input[type="file"] {
-      margin: 1rem 0;
-      font-size: 1rem;
-    }
+  backButton.addEventListener('click', () => {
+    window.location.href = window.location.pathname;
+  });
+</script>
 
-    button {
-      padding: 10px 20px;
-      background-color: #1976d2;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 0.5rem;
-    }
-
-    button:hover {
-      background-color: #1565c0;
-    }
-
-    .footer {
-      margin-top: 1.5rem;
-      font-size: 0.8rem;
-      color: #666;
-    }
-
-    /* Preview imagen subida */
-    .preview-container {
-      margin-top: 1.5rem;
-    }
-
-    .preview-container img {
-      max-width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: block;
-      margin: 0 auto 1rem auto;
-    }
-
-    .btn-back {
-      background-color: #444;
-      margin-top: 10px;
-    }
-    .btn-back:hover {
-      background-color: #222;
-    }
-  </style>
-</head>
-<body>
-  <div class="container" id="main-container">
-    <h1>Subir archivo</h1>
-    <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="archivo" required />
-      <br />
-      <button type="submit">Subir</button>
-    </form>
-
-    <div class="preview-container" id="preview" style="display:none;">
-      <h2>Archivo subido correctamente</h2>
-      <img id="uploaded-image" src="" alt="Imagen subida" />
-      <button class="btn-back" id="back-button">Subir otro archivo</button>
-    </div>
-
-    <div class="footer">Proyecto cliente-servidor en Node.js</div>
-  </div>
-
-  <script>
-    // Detectar si hay parámetro en URL con nombre "file"
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-
-    const fileName = getQueryParam('file');
-    const previewDiv = document.getElementById('preview');
-    const uploadForm = document.getElementById('upload-form');
-    const uploadedImage = document.getElementById('uploaded-image');
-    const backButton = document.getElementById('back-button');
-
-    if (fileName) {
-      // Ocultar formulario
-      uploadForm.style.display = 'none';
-
-      // Mostrar preview con imagen subida
-      uploadedImage.src = '/uploads/' + encodeURIComponent(fileName);
-      previewDiv.style.display = 'block';
-    }
-
-    // Botón para volver al inicio (recargar sin parámetros)
-    backButton.addEventListener('click', () => {
-      window.location.href = window.location.pathname;
-    });
-  </script>
-</body>
-</html>
 
