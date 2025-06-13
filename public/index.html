@@ -1,26 +1,70 @@
-<!-- Solo la parte JS que importa -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Subida de Archivos</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-image: url("fondo.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
 
-<script>
-  function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  }
+    #preview {
+      display: none;
+    }
 
-  const fileName = getQueryParam('file');
-  const previewDiv = document.getElementById('preview');
-  const uploadForm = document.getElementById('upload-form');
-  const uploadedImage = document.getElementById('uploaded-image');
-  const backButton = document.getElementById('back-button');
+    input[type="file"] {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
 
-  if (fileName) {
-    uploadForm.style.display = 'none';
-    uploadedImage.src = '/uploads/' + encodeURIComponent(fileName);
-    previewDiv.style.display = 'block';
-  }
+  <h1>Subir un archivo</h1>
 
-  backButton.addEventListener('click', () => {
-    window.location.href = window.location.pathname;
-  });
-</script>
+  <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="archivo" required />
+    <br />
+    <button type="submit">Subir</button>
+  </form>
 
+  <div id="preview">
+    <h2>Archivo subido:</h2>
+    <img id="uploaded-image" src="" alt="Archivo subido" style="max-width: 80%;" />
+    <br />
+    <button id="back-button">Volver</button>
+  </div>
+
+  <!-- Tu script -->
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const fileName = getQueryParam('file');
+    const previewDiv = document.getElementById('preview');
+    const uploadForm = document.getElementById('upload-form');
+    const uploadedImage = document.getElementById('uploaded-image');
+    const backButton = document.getElementById('back-button');
+
+    if (fileName) {
+      uploadForm.style.display = 'none';
+      uploadedImage.src = '/uploads/' + encodeURIComponent(fileName);
+      previewDiv.style.display = 'block';
+    }
+
+    backButton.addEventListener('click', () => {
+      window.location.href = window.location.pathname;
+    });
+  </script>
+
+</body>
+</html>
 
