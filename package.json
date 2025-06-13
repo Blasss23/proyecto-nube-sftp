@@ -1,0 +1,13 @@
+{
+  "name": "proyecto-nube-sftp",
+  "version": "1.0.0",
+  "description": "Aplicación cliente-servidor para compartir archivos",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.4"
+  }
+}
