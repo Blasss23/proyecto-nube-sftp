@@ -19,11 +19,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Servir archivos estáticos desde carpeta 'public'
-app.use(express.static('public'));
-app.use('/uploads', express.static(uploadDir)); // para poder ver archivos subidos
+// Servir archivos estáticos desde 'public' y carpeta 'uploads'
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(uploadDir));
 
-// Ruta explícita para servir index.html en /
+// Ruta explícita para servir index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -39,7 +39,7 @@ app.post('/upload', upload.single('archivo'), (req, res) => {
   res.send(`
     <html lang="es">
       <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
         <title>Archivo Subido</title>
         <style>
           body {
@@ -86,7 +86,7 @@ app.post('/upload', upload.single('archivo'), (req, res) => {
   `);
 });
 
-// Iniciar el servidor
+// Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
